@@ -1,0 +1,11 @@
+
+pipeline:
+# Build and push release
+    build-and-push-branch:
+        image: plugins/docker
+        repo: fpfis/elasticsearch
+        tags: 6.2
+        secrets: [ DOCKER_USERNAME, DOCKER_PASSWORD ]
+        when:
+            event: push
+            branch: 6.2
