@@ -1,8 +1,8 @@
 # Supported tags and respective `Dockerfile` links
 
-* `5.6.3`,`5.6`, `5` [(5.6/Dockerfile)](https://github.com/Khezen/docker-elasticsearch/blob/5.6/Dockerfile)
-* `6.1.3`,`6.1` [(6.1/Dockerfile)](https://github.com/Khezen/docker-elasticsearch/blob/6.1/Dockerfile)
-* `6.2.2`,`6.2`, `6`, `latest` [(6.2/Dockerfile)](https://github.com/Khezen/docker-elasticsearch/blob/6.2/Dockerfile)[![](https://images.microbadger.com/badges/image/khezen/elasticsearch.svg)](https://hub.docker.com/r/khezen/elasticsearch/)
+Ubuntu fork of https://github.com/khezen/docker-elasticsearch
+
+* `6.2.2`,`6.2`, `6`, `latest` [(Dockerfile)](https://github.com/fpfis/docker-elasticsearch/blob/6.2/Dockerfile)[![](https://images.microbadger.com/badges/image/fpfis/elasticsearch:6.2.svg)](https://hub.docker.com/r/fpfis/elasticsearch/)
 
 # What is elasticsearch?
 
@@ -14,13 +14,13 @@ This image uses [search-guard](https://github.com/floragunncom/search-guard) ins
 # How To Use
 
 ```
-docker run -d -p 9200:9200 -p 9300:9300 -e ELASTIC_PWD=changeme -e KIBANA_PWD=changeme  khezen/elasticsearch:latest   
+docker run -d -p 9200:9200 -p 9300:9300 -e ELASTIC_PWD=changeme -e KIBANA_PWD=changeme  fpfis/elasticsearch:6.2   
 ```
 ```
 version: '2'
 services:
     elasticsearch:
-        image: khezen/elasticsearch:5
+        image: fpfis/elasticsearch:6.2
         environment:
             ELASTIC_PWD: changeme
             KIBANA_PWD: changeme
@@ -122,10 +122,10 @@ Keystore(private key storage) password.
 
 Configuration file is located in `/etc/elasticsearch/elasticsearch.yml` if you follow the same volume mapping as in the docker-compose example above.
 
-You can find default config [there](https://github.com/Khezen/docker-elasticsearch/blob/master/config/elasticsearch.yml).
+You can find default config [there](https://github.com/fpfis/docker-elasticsearch/blob/6.2/config/elasticsearch.yml).
 
 You can find help with elasticsearch configuration [there](https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html).
 
 # User Feedback
 ## Issues
-If you have any problems with or questions about this image, please ask for help through a [GitHub issue](https://github.com/Khezen/docker-elasticsearch/issues).
+If you have any problems with or questions about this image, please ask for help through a [GitHub issue](https://github.com/fpfis/docker-elasticsearch/issues).

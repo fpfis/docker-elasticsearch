@@ -1,7 +1,4 @@
-FROM openjdk:8-jre-alpine
-
-LABEL maintainer="Guillaume Simonneau <simonneaug@gmail.com>"
-LABEL description="elasticsearch search-guard"
+FROM ubuntu
 
 ENV ES_TMPDIR "/tmp"
 ENV ES_VERSION 6.2.2
@@ -12,9 +9,9 @@ ENV ES_TARBALL_ASC "${DOWNLOAD_URL}/elasticsearch-${ES_VERSION}.tar.gz.asc"
 ENV GPG_KEY "46095ACC8548582C1A2699A9D27DMAINTAINER666CD88E42B4"
 ENV PATH /elasticsearch/bin:$PATH
 
+RUN apt-get update
 # Install Elasticsearch.
-RUN apk add --no-cache --update bash ca-certificates su-exec util-linux curl openssl rsync
-RUN apk add --no-cache -t .build-deps gnupg \
+RUN apt-get install -y gpg bash ca-certificates util-linux curl openssl rsync openjdk-8-jre \
   && mkdir /install \
   && cd /install \
   && echo "===> Install Elasticsearch..." \
@@ -29,7 +26,7 @@ RUN apk add --no-cache -t .build-deps gnupg \
   tar -xf elasticsearch.tar.gz \
   && ls -lah \
   && mv elasticsearch-$ES_VERSION /elasticsearch \
-  && adduser -DH -s /sbin/nologin elasticsearch \
+  && adduser --no-create-home --disabled-login --system --group elasticsearch \
   && echo "===> Installing search-guard..." \
   && /elasticsearch/bin/elasticsearch-plugin install -b "com.floragunn:search-guard-6:$ES_VERSION-$SG_VERSION" \
   && echo "===> Creating Elasticsearch Paths..." \
@@ -43,7 +40,7 @@ RUN apk add --no-cache -t .build-deps gnupg \
   done \
   && rm -rf /install \
   && rm /elasticsearch/config/elasticsearch.yml \
-  && apk del --purge .build-deps
+  && apt-get autoremove --purge -y gpg && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
 RUN  mkdir -p /.backup/elasticsearch/
